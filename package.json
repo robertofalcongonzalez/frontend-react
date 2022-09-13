@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.58",
     "@types/react": "^18.0.19",
@@ -13,13 +11,17 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.8.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "style-lint": "stylelint --config=.stylelintrc.json \"src/**/*.scss\" --formatter verbose"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "style-lint": "stylelint --config=.stylelintrc.json \"src/**/*.scss\" --formatter verbose",
+    "lint": "eslint --max-warnings=0 --fix --ext .ts,.tsx .",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "coverage": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -27,6 +29,20 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!src/index.tsx",
+      "!src/reportWebVitals.ts",
+      "!src/serviceWorker.ts",
+      "!src/serviceWorkerRegistration.ts"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": ["npm run format", "npm run lint"],
+    "src/**/*.scss": "npm run style-lint"
   },
   "browserslist": {
     "production": [
@@ -39,5 +55,27 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@tsconfig/create-react-app": "^1.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^27.0.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^5.6.4",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "sass": "^1.54.9",
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard-scss": "^5.0.0",
+    "typescript": "^4.8.3"
   }
 }
